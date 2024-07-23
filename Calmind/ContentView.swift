@@ -9,14 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
+    @State var audioManagerViewModel: AudioManagerViewModel = .init()
     var body: some View {
-        MeditationView()
-            .environmentObject(audioManagerViewModel)
+        ListMeditationView(audioManagerViewModel: audioManagerViewModel)
     }
 }
 
 #Preview {
-    ContentView()
-        .environmentObject(AudioManagerViewModel())
+    ContentView(audioManagerViewModel: AudioManagerViewModel())
 }

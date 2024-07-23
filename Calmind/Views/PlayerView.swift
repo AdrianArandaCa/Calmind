@@ -10,7 +10,7 @@ import SwiftUI
 struct PlayerView: View {
     
     @State private var value: Double = 0.0
-    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
+    @State var audioManagerViewModel: AudioManagerViewModel
     @Environment(\.dismiss) var dismiss
     var isPreview: Bool = false
     
@@ -59,6 +59,7 @@ struct PlayerView: View {
                             .clipShape(Circle())
                     }
                 }
+                .padding()
                 
                 Spacer()
                 
@@ -124,8 +125,9 @@ struct PlayerView: View {
                     .frame(height: UIScreen.main.bounds.height / 12)
             }
             .foregroundStyle(.white)
-            .padding(20)
+            .padding()
         }
+        .ignoresSafeArea()
         .onAppear() {
             do {
                 try audioManagerViewModel.startPlayer(track: "relaxed_music", isPreview: isPreview)
@@ -141,6 +143,5 @@ struct PlayerView: View {
 }
 
 #Preview {
-    PlayerView(isPreview: true)
-        .environmentObject(AudioManagerViewModel())
+    PlayerView(audioManagerViewModel: AudioManagerViewModel(), isPreview: true)
 }

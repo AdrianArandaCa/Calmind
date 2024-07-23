@@ -10,111 +10,140 @@ import SwiftUI
 struct MeditationView: View {
     
     @State var showPlayer: Bool = false
-    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
+    @State var audioManagerViewModel: AudioManagerViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack(spacing: 0) {
-            ZStack(alignment: .top){
-                Image("music")
-                    .resizable()
-                    .scaledToFill()
-            }
-            .frame(height: UIScreen.main.bounds.height/3)
-            
+        GeometryReader { geometry in
             ZStack {
-                Color(red: 24/255, green: 23/255, blue: 22/255)
-                
-                VStack(alignment: .leading, spacing: 24, content: {
-                    HStack(alignment: .center, spacing: 8, content: {
-                        Text("Music")
-                        Text("0s")
-                    })
-                    .font(.subheadline)
-                    .textCase(.uppercase)
-                    .opacity(0.7)
-                    Text("Night Island")
-                        .font(.title)
-                    Text("Ease the mind into a restful night's sleet with these deep, amblent tones. ")
-                    HStack(alignment: .center, spacing: 10, content: {
-                        Image(systemName: "heart.fill")
-                        Text("24k Liked")
-                        
-                        Image(systemName: "airpods")
-                        Text("34k Listening")
-                    })
-                    Divider()
-                    Text("Related")
-                        .font(.title3)
+                VStack(spacing: 0) {
+                    ZStack(alignment: .top){
+                        Image(audioManagerViewModel.selectedSong?.image ?? "music")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: geometry.size.height / 4)
+                    }
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            ForEach(demoRelated, id:\.id) { item in
-                                VStack(alignment: .leading, spacing: 10) {
-                                    Image(item.image)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 180)
-                                    
-                                    Text(item.name)
-                                        .font(.headline)
-                                    
-                                    HStack {
-                                        Text(item.time)
-                                            .font(.caption)
-                                        Text(item.category.uppercased())
-                                            .font(.caption)
+                    
+                    ZStack {
+                        Color(red: 24/255, green: 23/255, blue: 22/255)
+                        
+                        VStack(alignment: .leading, spacing: 24, content: {
+                            HStack(alignment: .center, spacing: 8, content: {
+                                Text("\(audioManagerViewModel.selectedSong?.name ?? "No name")")
+                                Text(String(format:"%.2f s",audioManagerViewModel.selectedSong?.time.doubleValue ?? 0))
+                            })
+                            .font(.subheadline)
+                            .textCase(.uppercase)
+                            .opacity(0.7)
+                            Text(audioManagerViewModel.selectedSong?.name ?? "No name")
+                                .font(.title)
+                            Text(audioManagerViewModel.selectedSong?.description ?? "No description")
+                            HStack(alignment: .center, spacing: 10, content: {
+                                Image(systemName: "heart.fill")
+                                Text(String(format: "%d k Liked",audioManagerViewModel.selectedSong?.liked.intValue ?? 0))
+                                
+                                Image(systemName: "airpods")
+                                Text(String(format: "%d k Listening", audioManagerViewModel.selectedSong?.listenings.intValue ?? 0))
+                            })
+                            Divider()
+                            Text("Related")
+                                .font(.title3)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10) {
+                                    if let relateds = audioManagerViewModel.selectedSong?.relateds {
+                                        ForEach(relateds, id:\.id) { item in
+                                            VStack(alignment: .leading, spacing: 10) {
+                                                Image(item.image)
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 180)
+                                                
+                                                Text(item.name)
+                                                    .font(.headline)
+                                                
+                                                HStack {
+                                                    Text("\(item.time)")
+                                                        .font(.caption)
+                                                    Text(item.category.uppercased())
+                                                        .font(.caption)
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        ForEach(demoRelated1, id:\.id) { item in
+                                            VStack(alignment: .leading, spacing: 10) {
+                                                Image(item.image)
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 100, height: 100)
+                                                
+                                                Text(item.name)
+                                                    .font(.headline)
+                                                
+                                                HStack {
+                                                    Text("\(item.time) min")
+                                                        .font(.caption)
+                                                    Text(item.category.uppercased())
+                                                        .font(.caption)
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
+                            Spacer()
+                        })
+                        .padding()
+                        .foregroundStyle(.white)
+                        
+                        VStack {
+                            Spacer()
+                            
+                            Button {
+                                showPlayer.toggle()
+                            } label: {
+                                Label("Play", systemImage: "play.fill")
+                                    .font(.headline)
+                                    .foregroundStyle(.black)
+                                    .padding(.vertical, 15)
+                                    .frame(maxWidth: geometry.size.width)
+                                    .background(.white)
+                                    .clipShape(Capsule())
+                                    .padding()
+                                    .padding(.bottom)
+                            }
+                            .fullScreenCover(isPresented: $showPlayer, content: {
+                                PlayerView(audioManagerViewModel: audioManagerViewModel, isPreview: true)
+                            })
+
                         }
                     }
-                    Spacer()
-                })
-                .padding()
-                .foregroundStyle(.white)
-                
+                }
                 VStack {
-                    Spacer()
-                    
-                    Button {
-                        showPlayer.toggle()
-                    } label: {
-                        Label("Play", systemImage: "play.fill")
-                            .font(.headline)
-                            .foregroundStyle(.black)
-                            .padding(.vertical, 15)
-                            .frame(maxWidth: .infinity)
-                            .background(.white)
-                            .clipShape(Capsule())
-                            .padding()
-                            .padding(.bottom)
+                    HStack {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .foregroundStyle(.black)
+                                .padding()
+                                .background(.white.opacity(0.5))
+                                .clipShape(Circle())
+                        }
+                        .padding()
+                        Spacer()
                     }
-                    .fullScreenCover(isPresented: $showPlayer, content: {
-                        PlayerView(isPreview: true)
-                            .environmentObject(audioManagerViewModel)
-                    })
-
+                    .padding()
+                    Spacer()
                 }
             }
+            .ignoresSafeArea()
         }
-        .ignoresSafeArea()
     }
 }
 
 #Preview {
-    MeditationView()
-        .environmentObject(AudioManagerViewModel())
+    MeditationView(audioManagerViewModel: AudioManagerViewModel())
 }
-
-struct RelatedModel: Identifiable {
-    var id: UUID = .init()
-    var image: String
-    var name: String
-    var time: String
-    var category: String
-}
-
-var demoRelated: [RelatedModel] = [
-    RelatedModel(image: "moon", name: "Moon Clouds", time: "45min", category: "Sleep Music"),
-    RelatedModel(image: "sweet_sleep", name: "Sweet Sleep", time: "45min", category: "Sleep Music")
-]

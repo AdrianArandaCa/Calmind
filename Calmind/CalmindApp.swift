@@ -10,11 +10,9 @@ import SwiftUI
 @main
 struct CalmindApp: App {
     
-    @StateObject var audioManagerViewModel = AudioManagerViewModel()
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(audioManagerViewModel)
         }
     }
 }

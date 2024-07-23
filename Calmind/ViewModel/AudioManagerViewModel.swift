@@ -14,9 +14,13 @@ enum CustomError: Error {
     case errorPlayerNotFound
 }
 
-final class AudioManagerViewModel: ObservableObject {
+@Observable
+final class AudioManagerViewModel {
     
     var player : AVAudioPlayer?
+    var selectedSong: SongModel?
+    
+    init() { }
     
     func startPlayer(track: String, isPreview: Bool = false) throws {
         guard let url = Bundle.main.url(forResource: track, withExtension: "mp3") else {
