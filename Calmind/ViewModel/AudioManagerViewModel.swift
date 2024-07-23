@@ -14,13 +14,10 @@ enum CustomError: Error {
     case errorPlayerNotFound
 }
 
-@Observable
-final class AudioManagerViewModel {
+final class AudioManagerViewModel:ObservableObject {
     
     var player : AVAudioPlayer?
-    var selectedSong: SongModel?
-    
-    init() { }
+    @Published var selectedSong: SongModel?
     
     func startPlayer(track: String, isPreview: Bool = false) throws {
         guard let url = Bundle.main.url(forResource: track, withExtension: "mp3") else {
@@ -42,13 +39,13 @@ final class AudioManagerViewModel {
         }
     }
     
-    func playPause() throws {
+    func playPause(dismiss: Bool = false) throws {
         guard let player = player else {
             print("Instance of audio player not found")
             throw CustomError.errorPlayerNotFound
         }
         
-        if player.isPlaying {
+        if dismiss || player.isPlaying {
             player.pause()
         } else {
             player.play()

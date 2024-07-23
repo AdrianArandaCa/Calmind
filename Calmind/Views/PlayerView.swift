@@ -10,7 +10,7 @@ import SwiftUI
 struct PlayerView: View {
     
     @State private var value: Double = 0.0
-    @State var audioManagerViewModel: AudioManagerViewModel
+    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
     @Environment(\.dismiss) var dismiss
     var isPreview: Bool = false
     
@@ -29,6 +29,11 @@ struct PlayerView: View {
             VStack(spacing: 32) {
                 HStack {
                     Button {
+                        do {
+                            try audioManagerViewModel.playPause(dismiss: true)
+                        } catch let error{
+                            print("\(error.localizedDescription)")
+                        }
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
@@ -130,7 +135,7 @@ struct PlayerView: View {
         .ignoresSafeArea()
         .onAppear() {
             do {
-                try audioManagerViewModel.startPlayer(track: "relaxed_music", isPreview: isPreview)
+                try audioManagerViewModel.startPlayer(track: audioManagerViewModel.selectedSong?.music ?? "relaxed_music", isPreview: isPreview)
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -143,5 +148,6 @@ struct PlayerView: View {
 }
 
 #Preview {
-    PlayerView(audioManagerViewModel: AudioManagerViewModel(), isPreview: true)
+    PlayerView(isPreview: true)
+        .environmentObject(AudioManagerViewModel())
 }

@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3ABB0D902C4E933C0095656B /* AudioManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB0D8F2C4E933B0095656B /* AudioManagerViewModel.swift */; };
-		3ABB0D922C4EA5E70095656B /* relaxed_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3ABB0D912C4EA5E70095656B /* relaxed_music.mp3 */; };
 		3AF47BBA2C4FB2A70058240D /* TimeComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF47BB92C4FB2A70058240D /* TimeComponents.swift */; };
 		3AF47BBF2C4FB83C0058240D /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF47BBE2C4FB83C0058240D /* SongModel.swift */; };
 		3AF47BC82C4FB9460058240D /* CalmindTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF47BC72C4FB9460058240D /* CalmindTests.swift */; };
 		3AF47BCF2C4FB9860058240D /* ListMeditationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF47BCE2C4FB9860058240D /* ListMeditationView.swift */; };
+		3AF47BD12C4FF5180058240D /* relaxed_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3AF47BD02C4FF5180058240D /* relaxed_music.mp3 */; };
 		3AFFC0C22C4D535000A6D37B /* CalmindApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC0C12C4D535000A6D37B /* CalmindApp.swift */; };
 		3AFFC0C42C4D535000A6D37B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC0C32C4D535000A6D37B /* ContentView.swift */; };
 		3AFFC0C62C4D535200A6D37B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AFFC0C52C4D535200A6D37B /* Assets.xcassets */; };
@@ -33,13 +33,13 @@
 
 /* Begin PBXFileReference section */
 		3ABB0D8F2C4E933B0095656B /* AudioManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManagerViewModel.swift; sourceTree = "<group>"; };
-		3ABB0D912C4EA5E70095656B /* relaxed_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = relaxed_music.mp3; sourceTree = "<group>"; };
 		3ABB0D932C4EA71D0095656B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3AF47BB92C4FB2A70058240D /* TimeComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeComponents.swift; sourceTree = "<group>"; };
 		3AF47BBE2C4FB83C0058240D /* SongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
 		3AF47BC52C4FB9460058240D /* CalmindTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalmindTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF47BC72C4FB9460058240D /* CalmindTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalmindTests.swift; sourceTree = "<group>"; };
 		3AF47BCE2C4FB9860058240D /* ListMeditationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMeditationView.swift; sourceTree = "<group>"; };
+		3AF47BD02C4FF5180058240D /* relaxed_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = relaxed_music.mp3; sourceTree = "<group>"; };
 		3AFFC0BE2C4D535000A6D37B /* Calmind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calmind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AFFC0C12C4D535000A6D37B /* CalmindApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalmindApp.swift; sourceTree = "<group>"; };
 		3AFFC0C32C4D535000A6D37B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				3AFFC0C52C4D535200A6D37B /* Assets.xcassets */,
-				3ABB0D912C4EA5E70095656B /* relaxed_music.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -112,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				3AFFC0C02C4D535000A6D37B /* Calmind */,
+				3AF47BD02C4FF5180058240D /* relaxed_music.mp3 */,
 				3AF47BC62C4FB9460058240D /* CalmindTests */,
 				3AFFC0BF2C4D535000A6D37B /* Products */,
 			);
@@ -248,7 +248,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ABB0D922C4EA5E70095656B /* relaxed_music.mp3 in Resources */,
+				3AF47BD12C4FF5180058240D /* relaxed_music.mp3 in Resources */,
 				3AFFC0C92C4D535200A6D37B /* Preview Assets.xcassets in Resources */,
 				3AFFC0C62C4D535200A6D37B /* Assets.xcassets in Resources */,
 			);

@@ -10,7 +10,7 @@ import SwiftUI
 struct MeditationView: View {
     
     @State var showPlayer: Bool = false
-    @State var audioManagerViewModel: AudioManagerViewModel
+    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -115,7 +115,8 @@ struct MeditationView: View {
                                     .padding(.bottom)
                             }
                             .fullScreenCover(isPresented: $showPlayer, content: {
-                                PlayerView(audioManagerViewModel: audioManagerViewModel, isPreview: true)
+                                PlayerView(isPreview: true)
+                                    .environmentObject(audioManagerViewModel)
                             })
 
                         }
@@ -145,5 +146,6 @@ struct MeditationView: View {
 }
 
 #Preview {
-    MeditationView(audioManagerViewModel: AudioManagerViewModel())
+    MeditationView()
+        .environmentObject(AudioManagerViewModel())
 }

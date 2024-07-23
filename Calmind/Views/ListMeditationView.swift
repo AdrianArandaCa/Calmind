@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListMeditationView: View {
-    @State var audioManagerViewModel: AudioManagerViewModel
+    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
     @State private var showMeditationView: Bool = false
     
     var body: some View {
@@ -33,12 +33,14 @@ struct ListMeditationView: View {
             }
             .navigationTitle("Meditation Songs")
             .fullScreenCover(isPresented: $showMeditationView) {
-                MeditationView(audioManagerViewModel: audioManagerViewModel)
+                MeditationView()
+                    .environmentObject(audioManagerViewModel)
             }
         }
     }
 }
 
 #Preview {
-    ListMeditationView(audioManagerViewModel: AudioManagerViewModel())
+    ListMeditationView()
+        .environmentObject(AudioManagerViewModel())
 }
