@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        MeditationView()
+            .environmentObject(audioManagerViewModel)
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AudioManagerViewModel())
 }

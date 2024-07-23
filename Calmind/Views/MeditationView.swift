@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct MeditationView: View {
+    
+    @State var showPlayer: Bool = false
+    @EnvironmentObject var audioManagerViewModel: AudioManagerViewModel
+    
     var body: some View {
         VStack(spacing: 0) {
-            Image("music")
-                .resizable()
-                .scaledToFill()
-                .frame(height: UIScreen.main.bounds.height/3)
-            
+            ZStack(alignment: .top){
+                Image("music")
+                    .resizable()
+                    .scaledToFill()
+            }
+            .frame(height: UIScreen.main.bounds.height/3)
             
             ZStack {
                 Color(red: 24/255, green: 23/255, blue: 22/255)
@@ -72,7 +77,7 @@ struct MeditationView: View {
                     Spacer()
                     
                     Button {
-                        
+                        showPlayer.toggle()
                     } label: {
                         Label("Play", systemImage: "play.fill")
                             .font(.headline)
@@ -84,6 +89,10 @@ struct MeditationView: View {
                             .padding()
                             .padding(.bottom)
                     }
+                    .fullScreenCover(isPresented: $showPlayer, content: {
+                        PlayerView(isPreview: true)
+                            .environmentObject(audioManagerViewModel)
+                    })
 
                 }
             }
@@ -94,6 +103,7 @@ struct MeditationView: View {
 
 #Preview {
     MeditationView()
+        .environmentObject(AudioManagerViewModel())
 }
 
 struct RelatedModel: Identifiable {
